@@ -3,19 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:PaintApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="PaintApplication" Height="600" Width="1000" ResizeMode="NoResize">
     <DockPanel>
         <ToolBar Name="MyToolbar" DockPanel.Dock= "Top" Height = "50" >
             <RadioButton Name ="LineButton" BorderBrush="#FF969696" Content="Line" Height="50" Width="80" GroupName="ShapeGroup" Click="LineButton_Click" IsChecked="True"/>
             <RadioButton Name ="EllipseButton" BorderBrush="#FF969696" Content="Ellipse" Height="50" Width="80" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
             <RadioButton Name ="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="50" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click"/>
+            <RadioButton Name ="RemoveShapeButton" BorderBrush="#FF969696" Content="RemoveShape" Height="50" Width="80" GroupName="ShapeGroup" Click="DrawButton_Click"/>
+            <RadioButton BorderBrush="#FFD2D2D2" Content="Draw" Height="50" Width="80" GroupName="ShapeGroup" Click="DrawButton_Click"/>
+            <RadioButton x:Name="EraseButton"   BorderBrush="#FFD2D2D2" Content="Erase" Height="50" Width="80" GroupName="ShapeGroup" Click="DrawButton_Click"/>
+            <RadioButton BorderBrush="#FFD2D2D2" Content="Select" Height="50" Width="80" GroupName="ShapeGroup" Click="DrawButton_Click"/>
+            <Button BorderBrush="#FFD2D2D2" Content="Save" Height="50" Width="80" Click="SaveButton_Click"/>
+            <Button BorderBrush="#FFD2D2D2" Content="Open" Height="50" Width="80" Click="OpenButton_Click"/>
+            <Label Width="80" Height="50" Content="Brush Size" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="comboBrushThickness" DropDownClosed="BrushSize_DropDownClosed" Width="50" Height="80">
+                <ComboBoxItem IsSelected="True">4</ComboBoxItem>
+                <ComboBoxItem>6</ComboBoxItem>
+                <ComboBoxItem>8</ComboBoxItem>
+                <ComboBoxItem>10</ComboBoxItem>
+                <ComboBoxItem>12</ComboBoxItem>
+                <ComboBoxItem>14</ComboBoxItem>
+                <ComboBoxItem>16</ComboBoxItem>
+                <ComboBoxItem>18</ComboBoxItem>
+                <ComboBoxItem>20</ComboBoxItem>
+            </ComboBox>
+         <!--   <ColorPicker Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged"></ColorPicker> -->
         </ToolBar>
-        <Canvas Name= "MyCanvas" Background="AntiqueWhite" Height="300" Width="525" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove">
-            <Line X1= "10" Y1="10" X2="50" Y2="50" Stroke="Black" StrokeThickness="4"></Line>
-            <Ellipse Fill="Yellow" Height="50" Width="100" StrokeThickness="2" Stroke = "Black" Canvas.Left ="100" Canvas.Top="20"></Ellipse>
-            <Rectangle Fill="Blue" Height="50" Width="100" Canvas.Left="240" Canvas.Top = "20"></Rectangle>
-        </Canvas>
+        <InkCanvas Name= "MyCanvas" Background="White" Height="600" Width="1000" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" PreviewMouseDown="StackPanel_PreviewMouseDown" ResizeEnabled="True" >
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes x:Name="strokeAttr" Width="3" Height="3" Color="Black"></DrawingAttributes>
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
     </DockPanel>
 </Window>
